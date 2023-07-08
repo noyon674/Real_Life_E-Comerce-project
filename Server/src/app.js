@@ -5,6 +5,7 @@ const createError = require('http-errors');
 const xssClean = require('xss-clean');
 const expressLimit = require('express-rate-limit');
 const userRouter = require('./Routers/userRouter');
+const seedRouter = require('./Routers/seedRouter');
 const app = express();
 
 //create rate limiter
@@ -20,11 +21,11 @@ app.use(rateLimit);
 app.use(Morgan('dev'));
 app.use(bodyParser.json());//Built in middleware for changing body 
 app.use(bodyParser.urlencoded({extended: true}));
+
 /////user router use
 app.use('/api/users',userRouter);
-
-//client middlewate
-
+//seed api
+app.use('/api/seed', seedRouter);
 
 //rate limit check
 app.get('/limit', (req, res)=>{

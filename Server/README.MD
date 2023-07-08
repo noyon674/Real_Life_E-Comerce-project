@@ -14,3 +14,5 @@
 11. MVC Architecture [Routes, Models, controlls]
 12. Connect to the MongoDB database
 13. Schema & Model for user
+14. Create seed router for testeing
+15. GET /api/users --> isAdmin -> getAllUsers -> searchByName + pagination function
