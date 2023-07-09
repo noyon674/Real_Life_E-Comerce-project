@@ -17,3 +17,6 @@
 13. Schema & Model for user
 14. Create seed router for testeing
 15. GET /api/users --> isAdmin -> getAllUsers -> searchByName + pagination function
+16. responseHandler controller for error or success
+17. GET /api/users/:id --> get a single user
+18. How to create services in the backend
