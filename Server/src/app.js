@@ -6,6 +6,7 @@ const xssClean = require('xss-clean');
 const expressLimit = require('express-rate-limit');
 const userRouter = require('./Routers/userRouter');
 const seedRouter = require('./Routers/seedRouter');
+const { errorResponse } = require('./Controller/responseController');
 const app = express();
 
 //create rate limiter
@@ -27,21 +28,7 @@ app.use('/api/users',userRouter);
 //seed api
 app.use('/api/seed', seedRouter);
 
-//rate limit check
-app.get('/limit', (req, res)=>{
-    res.status(200).json({Message: 'I am your rate checking route.'});
-});
 
-
-//routes
-app.get('/about', (req, res)=>{
-    res.status(200).json({Message: 'I am your about route.'});
-});
-app.get('/contact', (req, res)=>{
-    res.status(200).json({Message: 'I am your contact route.'});
-});
-
-//express error handling middleware
 //// client handling middleware
 app.use((req, res, next)=>{
     //http error
@@ -50,10 +37,10 @@ app.use((req, res, next)=>{
 
 //server error checking --> all the errors caome here
 app.use((err, req, res, next)=>{
-    return res.status(err.status || 500).json({
-        Success: false,
-        Messege: err.message
-    });
+    return errorResponse(res, {
+        statusCode: err.status,
+        message: err.message
+    })
 });
 
 //export the 'app' module

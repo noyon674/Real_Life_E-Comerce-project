@@ -1,24 +1,23 @@
 //import files
 const createError = require('http-errors');
 const User = require('../Models/userModel');
+const { successResponse } = require('./responseController');
+const mongoose = require('mongoose');
+const { findWithID } = require('../Services/findUserByID');
 
 //find all user api
 const getUsers = async (req, res, next)=>{
-    try {
-        //searching
-        const search = req.query.search || '';
-        //pagination, page related first page
-        const page = Number(req.query.page) || 1;
-        //showing limit in the one page
-        const limit = Number(req.query.limit) || 1;
+    try { 
+        const search = req.query.search || '';//searching
+        const page = Number(req.query.page) || 1;//pagination, page related first page
+        const limit = Number(req.query.limit) || 2;//showing limit in the one page
 
         //searching function work like this, case insencitive searching
         const searchRegExp = new RegExp('.*'+ search + '.*', 'i');
 
         //filter function:
         const filter = {
-            //admin not allow to showing
-            isAdmin: {$ne: true},
+            isAdmin: {$ne: true},//admin not allow to showing
             //showing by serach: search can by email, name, phone
             $or: [
                 {name: {$regex: searchRegExp}},
@@ -31,34 +30,53 @@ const getUsers = async (req, res, next)=>{
 
         // find the users according filter and password not allow
         const users = await User.find(filter, options)
-        //in the one page how many user is showing
-        .limit(limit)
-        //one page's users is not allow in to the other page.
-        .skip((page-1)*limit);
+        
+        .limit(limit)//in the one page how many user is showing
+        .skip((page-1)*limit);//one page's users is not allow in to the other page.
 
         //how many users have after filtering 
-        const count = await User.find(filter).countDocuments();
+        const count = await User.find(filter).countDocuments();        
+        if(!users) throw createError(404, 'No users found.');//if user not found
 
-        //if user not found
-        if(!users) throw createError(404, 'No users found.');
         //response
-        res.status(200).send({
-            //users
-            users,
-            //pagination
-            pagination: {
-                //total page according to filtered users and according to limit
-                totalPage: Math.ceil(count / limit),
-                //current page: first time it is 1
-                currentPage: page,
-                //when 
-                previousPage: page - 1 > 0 ? page-1 : null,
-                nextPage: page+1 <= Math.ceil(count/limit) ? page+1: null
-            }
-        })
+        return successResponse(res, {
+            statusCode:200,
+            message:'users were returend successfully',
+            payload:{
+                users,
+                //pagination
+                pagination: {
+                    totalPage: Math.ceil(count / limit),                  
+                    currentPage: page, //total page according to filtered users and according to limit                  
+                    previousPage: page - 1 > 0 ? page-1 : null, //current page: first time it is 1
+                    nextPage: page+1 <= Math.ceil(count/limit) ? page+1: null
+                },
+            }, 
+        });
     } catch (error) {
-        
+        next(error);
     }
 };
-
-module.exports = getUsers;
+///Fine one user by user's ID
+const getOne = async (req, res, next)=>{
+    try {
+        const id = req.params.id;
+        //find user by id some code hane another file into the services folder
+        const user = await findWithID(id);
+        //response
+        return successResponse(res, {
+            statusCode:200,
+            message:'users were returend successfully',
+            payload: {user}
+        });
+    } catch (error) {
+        //if mongo id is not correct then handle the mongoose error
+        if(error instanceof mongoose.Error){
+            next(createError(400, 'Invalid User ID.'));
+            return;
+        }
+        next(error);
+    }
+};
+///export
+module.exports = {getUsers, getOne};
