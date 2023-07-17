@@ -9,14 +9,14 @@ const data = {
         },
         {
             name: 'Purna Sarker',
-            email: 'sparklemithun45.sm@gmail.com',
+            email: 'mithun45.sm@gmail.com',
             password: '12345',
             phone: '34750495',
             address: 'dhaka'
         },
         {
             name: 'Mithun Sarker',
-            email: 'sparklemithun3.sm@gmail.com',
+            email: 'noyon.sm@gmail.com',
             password: '12345',
             phone: '34750495',
             address: 'dhaka'

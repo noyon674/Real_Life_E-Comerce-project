@@ -1,18 +1,15 @@
-//import
-const User = require("../Models/userModel");
+//import files
 const createError = require('http-errors');
 const mongoose = require('mongoose');
 
-//
-const findWithID = async(id)=>{
+//find with id function
+const findWithID = async(Model, id, option = {})=>{
     try {
         //receive the given id
-        const options = {password: 0};
-        const item = await User.findById(id, options);
-        
+        const item = await Model.findById(id);
         //find user by id
         if(!item) {
-            throw createError(404, 'Item does not exist with this ID.')
+            throw createError(404, `${Model.modelName} does not exist with this ID.`)
         };
         return item;
 

@@ -1,4 +1,4 @@
-//error handle
+//error response handle
 const errorResponse = (res, {statusCode=500, message='Internal Server error'})=>{
     return res.status( statusCode).json({
         Success: false,
@@ -6,8 +6,8 @@ const errorResponse = (res, {statusCode=500, message='Internal Server error'})=>
     });
 };
 
-//success response
-const successResponse = (res, {statusCode=200, message='Success', payload = {}})=>{
+//success response handle
+const successResponse = (res, {statusCode=200, message='Successful', payload = {}})=>{
     return res.status( statusCode).json({
         Success: true,
         Messege: message,

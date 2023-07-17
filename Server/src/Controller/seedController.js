@@ -1,10 +1,11 @@
 const User = require('../Models/userModel');
-const data = require('../deta');
+const data = require('../data');
 
+//seed user controller
 const seedUser = async(req, res, next)=>{
     try {
         //delete in all existig users
-        await User.deleteMany({})
+        await User.deleteMany({});
 
         //createing new user
         const users = await User.insertMany(data.users);
@@ -16,4 +17,5 @@ const seedUser = async(req, res, next)=>{
     }
 };
 
+//export
 module.exports = {seedUser};

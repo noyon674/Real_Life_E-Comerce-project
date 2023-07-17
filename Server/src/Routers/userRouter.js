@@ -1,9 +1,16 @@
 //import files
 const express = require('express');
-const {getUsers, getOne} = require('../Controller/userController');
+const {getAllUser, getUserByID, deleteUserByID,
+     processRegister, activateUserAccount} = require('../Controller/userController');
 const userRouter = express.Router();
 
-userRouter.get('/', getUsers);
-userRouter.get('/:id', getOne);
+//all routes here
+userRouter.post('/processRegister', processRegister); //register a user
+userRouter.get('/', getAllUser); // get all users
+userRouter.get('/:id', getUserByID);// get single user by id
+userRouter.delete('/:id', deleteUserByID);// delete single user by id
+userRouter.post('/verify', activateUserAccount)
 
+
+//export routes
 module.exports = userRouter;
