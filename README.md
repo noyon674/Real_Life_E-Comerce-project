@@ -29,3 +29,6 @@
 24. setup smtp server & prepare email
 26. send email with nodemailer
 27. POST /api/users/verify -> verify + register into databse
+28. add express validator middleware
+29. add multer middleware for file upload
+30. PUT api/users/:id -> update a single user by id 
