@@ -134,7 +134,7 @@ try {
     };
     //send email with nodemailer
     try {
-        await sendEmailWithNodeMail(emailData);
+       // await sendEmailWithNodeMail(emailData);
     } catch (Emailerror) {
         next(createError(500, 'Failed to send varification email'));
         return;
