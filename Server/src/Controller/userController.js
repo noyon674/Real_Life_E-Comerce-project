@@ -158,7 +158,7 @@ const activateUserAccount = async (req, res, next)=>{
                 statusCode:404,
                 message: 'Token is empty'
             });
-        }
+        };
         //token verify
         const decoded = jwt.verify(token, jwtActivationKey);
         if(!decoded){
@@ -167,6 +167,7 @@ const activateUserAccount = async (req, res, next)=>{
                 message: 'Unable to verify'
             })
         };
+        console.log(decoded);
         const userExist = await User.exists({email: decoded.email});
         if(userExist) { next(createError(401, 'User is already exists. Please sign In'))};
         //user create

@@ -8,7 +8,7 @@ const defaultImgaPath= '../Public/Images/Users/t1.png';
 const jwtActivationKey = process.env.JWT_ACTIVATION_KEY || 'dkfaeJGEDWEUY874387@!$%';
 const SMTPUserName = process.env.SMTP_userName
 const SMTPPassword = process.env.SMPT_password;
-const clint_URL = process.envclinkURL
+const clint_URL = process.env.clinkURL
 
 //export
 module.exports =
