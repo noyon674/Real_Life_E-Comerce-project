@@ -3,23 +3,23 @@ const data = {
         {
             name: 'Noyon Sarker',
             email: 'sparklemithun.sm@gmail.com',
-            password: '12345',
+            password: '123453457',
             phone: '34750495',
-            address: 'dhaka'
+            address: 'dhakaweh'
         },
         {
             name: 'Purna Sarker',
             email: 'mithun45.sm@gmail.com',
-            password: '12345',
+            password: '1234534ou',
             phone: '34750495',
-            address: 'dhaka'
+            address: 'dhakadeh'
         },
         {
             name: 'Mithun Sarker',
             email: 'noyon.sm@gmail.com',
-            password: '12345',
+            password: '1234532i5y',
             phone: '34750495',
-            address: 'dhaka'
+            address: 'dhakabhd'
         }
     ]
 };

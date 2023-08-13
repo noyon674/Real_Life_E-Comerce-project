@@ -31,4 +31,6 @@
 27. POST /api/users/verify -> verify + register into databse
 28. add express validator middleware
 29. add multer middleware for file upload
-30. PUT api/users/:id -> update a single user by id 
+30. PUT api/users/:id -> update a single user by id
+31. Express validator
+32. images convert to buffer

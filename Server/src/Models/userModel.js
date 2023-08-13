@@ -29,7 +29,7 @@ const userSchema = Mongoose.Schema({
     password: {
         type: String,
         require: [true, 'user password is required'],
-        minlength: [3, 'The length of user name can be minimum 3 charecters'],
+        minlength: [6, 'The length of user name can be minimum 3 charecters'],
         set: (v)=>bcrypt.hashSync(v, saltRounds)
     },
     image: {
@@ -39,6 +39,7 @@ const userSchema = Mongoose.Schema({
     address: {
         type: String,
         require: [true, 'user address is required'],
+        minlength: [6, 'Address must be at least 6 charecters'],
     },
     phone: {
         type: String,
