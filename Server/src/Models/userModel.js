@@ -1,7 +1,6 @@
 //import files
 const Mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const { defaultImgaPath } = require('../secret');
 const saltRounds = 10;
 
 //create user schema
@@ -33,8 +32,9 @@ const userSchema = Mongoose.Schema({
         set: (v)=>bcrypt.hashSync(v, saltRounds)
     },
     image: {
-        type: String,
-        default: defaultImgaPath
+        type: Buffer,
+        contentType: String,
+        require: [true, 'User image is required.']
     },
     address: {
         type: String,

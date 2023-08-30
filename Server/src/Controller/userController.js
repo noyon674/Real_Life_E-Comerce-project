@@ -115,13 +115,19 @@ const deleteUserByID = async(req, res, next)=>{
 //register process
 const processRegister = async(req, res, next)=>{
 try {
-    const {name, email, password, phone, address} = req.body
+    const {name, email, password, phone, address, image} = req.body;
+
+    if(!req.file){
+        
+    }
+    //image convert to buffer string
+    const imageBufferString = req.file.buffer.toString('base64');
 
     const userExist = await User.exists({email: email});
     if(userExist) { next(createError(409, 'User is already exists.'))};
 
     //create web token
-    const token = createJsonWebToken({name, email, password, phone, address}, jwtActivationKey, '10m');
+    const token = createJsonWebToken({name, email, password, phone, address, image: imageBufferString}, jwtActivationKey, '10m');
 
     //prepare email
     const emailData = {

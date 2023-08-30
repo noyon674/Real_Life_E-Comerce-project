@@ -40,7 +40,16 @@ const validateUserRegistration = [
 
     body('image')
     .optional()
-    .isString()
+    .isString(),
+
+    body('image')
+    .custom((value, {req})=>{
+        if(!req.file || !req.file.buffer){
+            throw new Error('User image is require');
+        }
+        return true;
+    })
+    .withMessage('User image is required')
 
 ];
 
